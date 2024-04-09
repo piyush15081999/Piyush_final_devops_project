@@ -12,7 +12,7 @@ phases:
       - echo "Install phase ..."
     runtime-versions:
       nodejs: 16
-  pre-build:
+  pre_build:
     commands:
       - echo "Pre build phase ..."
       - apt-get update
