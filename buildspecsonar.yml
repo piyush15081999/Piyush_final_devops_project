@@ -2,10 +2,10 @@
 version: 0.2
 env:
   secrets-manager:
-    LOGIN: local/sonar:sonartoken
-    HOST: local/sonar:HOST
-    Organization: local/sonar:Organization
-    Project: local/sonar:Project
+    LOGIN: 'c8a21323ebad51d4b24d0ffaa9b46c67521ded02'
+    HOST: 'https://sonarcloud.io'
+    Organization: 'piyush15081999'
+    Project: 'Piyush_final_devops_project'
 phases:
   install:
     commands:
