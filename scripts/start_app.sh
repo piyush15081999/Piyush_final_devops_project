@@ -2,9 +2,9 @@
 
 sed -i 's/\[]/\["34.247.71.205"]/' /home/ubuntu/bus_resv/bus_resv/settings.py
 
-python manage.py migrate 
-python manage.py makemigrations     
-python manage.py collectstatic
+python3 manage.py migrate 
+python3 manage.py makemigrations     
+python3 manage.py collectstatic
 sudo service gunicorn restart
 sudo service nginx restart
 #sudo tail -f /var/log/nginx/error.log
