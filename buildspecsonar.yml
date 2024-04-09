@@ -10,7 +10,7 @@ phases:
     commands:
       - echo "Install phase ..."
     runtime-versions:
-      nodejs: 16
+      nodejs: 20
   pre_build:
     commands:
       - echo "Pre build phase ..."
