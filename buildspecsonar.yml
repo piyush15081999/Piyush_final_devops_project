@@ -1,35 +1,25 @@
 
+
+
 version: 0.2
-env:
-  LOGIN: 'c8a21323ebad51d4b24d0ffaa9b46c67521ded02'
-  HOST: 'https://sonarcloud.io'
-  Organization: 'piyush15081999'
-  Project: 'Piyush_final_devops_project'
+
 phases:
   install:
-    commands:
-      - echo "Install phase ..."
     runtime-versions:
-      nodejs: 20
+      java: corretto17
   pre_build:
     commands:
-      - echo "Pre build phase ..."
-      - apt-get update
-      - apt-get install -y jq
-      - wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip
-      - echo "Current Path is >>>"
-      - sh $pwd
-      - unzip ./sonar-scanner-cli-4.7.0.2747-linux.zip
-      - ls $pwd
-      - export PATH=$PATH:./sonar-scanner-4.7.0.2747-linux/bin/
+      - export SONAR_SCANNER_VERSION=5.0.1.3006
+      - export SONAR_SCANNER_HOME=$HOME/.sonar/sonar-scanner-$SONAR_SCANNER_VERSION-linux
+      - curl --create-dirs -sSLo $HOME/.sonar/sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-$SONAR_SCANNER_VERSION-linux.zip
+      - unzip -o $HOME/.sonar/sonar-scanner.zip -d $HOME/.sonar/
+      - export PATH=$SONAR_SCANNER_HOME/bin:$PATH
+      - export SONAR_SCANNER_OPTS="-server"
   build:
     commands:
-      - echo "Build phase ..."
-      - sonar-scanner -Dsonar.login=c8a21323ebad51d4b24d0ffaa9b46c67521ded02 -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=Piyush_final_devops_project -Dsonar.organization=piyush15081999
+      - set -e
+      - sonar-scanner -X -Dsonar.login=c8a21323ebad51d4b24d0ffaa9b46c67521ded02 -Dsonar.host.url=https://sonarcloud.io -Dsonar.projectKey=Piyush_final_devops_project -Dsonar.organization=piyush15081999 -DgeneratePom=true
       - sleep 5
-      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=$Project >result.json
-      - cat results.json
-      - if [$(jq -r '.projectStatus.status' result.json) = ERROR] ; then $CODEBUILD_BUILD_SUCCEDING -eq 0 :fi
-  post_build:
-    commands:
-    - echo "Post build phase ..."      
+      - curl https://sonarcloud.io/api/qualitygates/project_status?projectKey=hotel >result.json
+      - cat result.json
+    
