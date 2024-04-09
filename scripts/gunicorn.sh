@@ -1,4 +1,5 @@
 #!/usr/bin/bash
+sudo systemctl daemon-reload
 sudo cp /home/ubuntu/bus_resv/gunicorn/gunicorn.socket  /etc/systemd/system/gunicorn.socket
 sudo cp /home/ubuntu/bus_resv/gunicorn/gunicorn.service  /etc/systemd/system/gunicorn.service
 
